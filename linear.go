@@ -6,7 +6,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// Creates an instance of linear statistics.
+// Creates linear statistics.
 func NewLinear[Type constraints.Integer](lower, upper, width Type) (*Stat[Type], error) {
 	if lower > upper {
 		return nil, ErrLowerGreaterUpper

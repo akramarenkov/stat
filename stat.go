@@ -54,35 +54,38 @@ func createItems[Type constraints.Integer](spans []span.Span[Type]) []Item[Type]
 func (st *Stat[Type]) initInf() {
 	minimum, maximum := intspec.Range[Type]()
 
-	if minimum < st.items[0].Span.Begin {
-		negative := span.Span[Type]{
+	lower := st.items[st.lower()]
+	upper := st.items[st.upper()]
+
+	if minimum < lower.Span.Begin {
+		negInf := span.Span[Type]{
 			Begin: minimum,
-			End:   st.items[0].Span.Begin - 1,
+			End:   lower.Span.Begin - 1,
 		}
 
-		st.negInf.Span = negative
+		st.negInf.Span = negInf
 	}
 
-	if maximum > st.items[len(st.items)-1].Span.End {
-		positive := span.Span[Type]{
-			Begin: st.items[len(st.items)-1].Span.End + 1,
+	if maximum > upper.Span.End {
+		posInf := span.Span[Type]{
+			Begin: upper.Span.End + 1,
 			End:   maximum,
 		}
 
-		st.posInf.Span = positive
+		st.posInf.Span = posInf
 	}
 }
 
 // Increases the quantity of occurrences of a value within the specified spans.
 func (st *Stat[Type]) Inc(value Type) {
-	if value < st.items[0].Span.Begin {
+	if value < st.items[st.lower()].Span.Begin {
 		// Integer overflow is possible here and below, but it will take a long time
 		// and this case cannot be tested
 		st.negInf.Quantity++
 		return
 	}
 
-	if value > st.items[len(st.items)-1].Span.End {
+	if value > st.items[st.upper()].Span.End {
 		st.posInf.Quantity++
 		return
 	}
@@ -93,22 +96,35 @@ func (st *Stat[Type]) Inc(value Type) {
 	}
 }
 
+func (st *Stat[Type]) lower() int {
+	return 0
+}
+
+func (st *Stat[Type]) upper() int {
+	return len(st.items) - 1
+}
+
 // Returns a list of statistics items.
 func (st *Stat[Type]) Items() []Item[Type] {
 	items := make([]Item[Type], len(st.items)+infinitiesQuantity)
 
-	items[0] = st.negInf
+	baseOffest := 1
+	negInfID := 0
+	posInfID := len(items) - 1
 
-	copy(items[1:], st.items)
+	copy(items[baseOffest:], st.items)
 
-	items[len(items)-1] = st.posInf
+	items[negInfID] = st.negInf
+	items[posInfID] = st.posInf
 
-	if st.negInf.Quantity == 0 {
-		items = items[1:]
+	// Order of trimming is important because the offset from the top depends on the
+	// length of the slice
+	if st.posInf.Quantity == 0 {
+		items = items[:posInfID]
 	}
 
-	if st.posInf.Quantity == 0 {
-		items = items[:len(items)-1]
+	if st.negInf.Quantity == 0 {
+		items = items[baseOffest:]
 	}
 
 	return items
