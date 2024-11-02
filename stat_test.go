@@ -16,7 +16,7 @@ func TestStatPanic(t *testing.T) {
 	require.Panics(t, func() { stat.IncPosInf() })
 	require.Panics(t, func() { stat.Inc(0) })
 
-	require.Len(t, stat.Items(), 0)
+	require.Empty(t, stat.Items())
 }
 
 func TestStatGraphError(t *testing.T) {
