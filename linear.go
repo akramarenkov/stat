@@ -18,9 +18,6 @@ func NewLinear[Type constraints.Integer](lower, upper, width Type) (*Stat[Type],
 	}
 
 	predictor := func(value Type) uint64 {
-		lower := lower
-		width := width
-
 		return safe.Dist(value, lower) / uint64(width)
 	}
 
