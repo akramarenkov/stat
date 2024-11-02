@@ -207,11 +207,13 @@ func (st *Stat[Type]) Graph(writers ...io.Writer) error {
 
 	chart := pterm.DefaultBarChart.WithBars(bars).WithShowValue()
 
-	for _, writer := range writers {
-		chart = chart.WithWriter(writer)
-
-		// The version used actually does not return errors
+	if len(writers) == 0 {
+		// In the library version used, this function actually never returns errors
 		_ = chart.Render()
+	}
+
+	for _, writer := range writers {
+		_ = chart.WithWriter(writer).Render()
 	}
 
 	return nil
