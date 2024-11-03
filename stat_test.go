@@ -3,6 +3,7 @@ package stat
 import (
 	"io"
 	"math"
+	"os"
 	"testing"
 
 	"github.com/akramarenkov/safe"
@@ -130,6 +131,13 @@ func TestStatGraphError(t *testing.T) {
 	stat.items[0].Quantity = 0
 	stat.posInf.Quantity = math.MaxUint64
 	require.Error(t, stat.Graph(io.Discard))
+
+	stdout := os.Stdout
+	os.Stdout = nil
+
+	require.Error(t, stat.Graph())
+
+	os.Stdout = stdout
 }
 
 func BenchmarkStatLinear(b *testing.B) {
