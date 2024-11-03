@@ -2,6 +2,7 @@ package stat
 
 import (
 	"io"
+	"os"
 	"strconv"
 
 	"github.com/akramarenkov/safe"
@@ -28,7 +29,7 @@ type Stat[Type constraints.Integer] struct {
 // the span will be determined by searching the list of spans, which is slower.
 func New[Type constraints.Integer](spans []span.Span[Type], predictor Predictor[Type]) (*Stat[Type], error) {
 	if len(spans) == 0 {
-		return nil, ErrSpansEmpty
+		return nil, ErrSpansListEmpty
 	}
 
 	st := &Stat[Type]{
@@ -132,6 +133,22 @@ func (st *Stat[Type]) Items() []Item[Type] {
 
 // Writes statistics as a bar chart to the specified writers.
 func (st *Stat[Type]) Graph(writers ...io.Writer) error {
+	if len(writers) == 0 {
+		if err := st.graph(os.Stdout); err != nil {
+			return err
+		}
+	}
+
+	for _, writer := range writers {
+		if err := st.graph(writer); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (st *Stat[Type]) graph(writer io.Writer) error {
 	bars := make([]pterm.Bar, 0, len(st.items))
 
 	style := &pterm.Style{
@@ -189,16 +206,7 @@ func (st *Stat[Type]) Graph(writers ...io.Writer) error {
 
 	chart := pterm.DefaultBarChart.WithBars(bars).WithShowValue()
 
-	if len(writers) == 0 {
-		// In the library version used, this function actually never returns errors
-		_ = chart.Render()
-	}
-
-	for _, writer := range writers {
-		_ = chart.WithWriter(writer).Render()
-	}
-
-	return nil
+	return chart.WithWriter(writer).Render()
 }
 
 func fmtInt[Type constraints.Integer](number Type) string {

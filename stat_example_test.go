@@ -37,7 +37,6 @@ func ExampleStat() {
 	stat.Inc(101)
 
 	fmt.Println(stat.Graph(os.Stderr))
-
 	// Output:
 	// <nil>
 }

@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestStat(t *testing.T) {
+func TestStatLinear(t *testing.T) {
 	stat, err := NewLinear(1, 100, 39)
 	require.NoError(t, err)
 
@@ -70,7 +70,7 @@ func TestStat(t *testing.T) {
 	require.NoError(t, stat.Graph(io.Discard))
 }
 
-func TestStatFullRange(t *testing.T) {
+func TestStatLinearFullRange(t *testing.T) {
 	stat, err := NewLinear[uint8](0, math.MaxUint8, 100)
 	require.NoError(t, err)
 
@@ -117,16 +117,22 @@ func TestStatGraphError(t *testing.T) {
 	require.NoError(t, err)
 
 	stat.negInf.Quantity = math.MaxUint64
+	stat.items[0].Quantity = 0
+	stat.posInf.Quantity = 0
 	require.Error(t, stat.Graph(io.Discard))
 
+	stat.negInf.Quantity = 0
 	stat.items[0].Quantity = math.MaxUint64
+	stat.posInf.Quantity = 0
 	require.Error(t, stat.Graph(io.Discard))
 
+	stat.negInf.Quantity = 0
+	stat.items[0].Quantity = 0
 	stat.posInf.Quantity = math.MaxUint64
 	require.Error(t, stat.Graph(io.Discard))
 }
 
-func BenchmarkStat(b *testing.B) {
+func BenchmarkStatLinear(b *testing.B) {
 	linear, err := NewLinear(1, 80, 10)
 	require.NoError(b, err)
 
