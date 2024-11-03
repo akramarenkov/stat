@@ -15,10 +15,11 @@ import (
 
 // Statistics.
 type Stat[Type constraints.Integer] struct {
+	items     []Item[Type]
+	missed    Item[Type]
 	negInf    Item[Type]
 	posInf    Item[Type]
 	predictor Predictor[Type]
-	items     []Item[Type]
 }
 
 // Creates an instance of statistics for the specified spans of values.
@@ -107,25 +108,20 @@ func (st *Stat[Type]) upper() int {
 
 // Returns a list of statistics items.
 func (st *Stat[Type]) Items() []Item[Type] {
-	items := make([]Item[Type], len(st.items)+infinitiesQuantity)
+	items := make([]Item[Type], 0, len(st.items)+specialItemsQuantity)
 
-	baseOffest := 1
-	negInfID := 0
-	posInfID := len(items) - 1
-
-	copy(items[baseOffest:], st.items)
-
-	items[negInfID] = st.negInf
-	items[posInfID] = st.posInf
-
-	// Order of trimming is important because the offset from the top depends on the
-	// length of the slice
-	if st.posInf.Quantity == 0 {
-		items = items[:posInfID]
+	if st.missed.Quantity != 0 {
+		items = append(items, st.missed)
 	}
 
-	if st.negInf.Quantity == 0 {
-		items = items[baseOffest:]
+	if st.negInf.Quantity != 0 {
+		items = append(items, st.negInf)
+	}
+
+	items = append(items, st.items...)
+
+	if st.posInf.Quantity != 0 {
+		items = append(items, st.posInf)
 	}
 
 	return items
@@ -149,11 +145,27 @@ func (st *Stat[Type]) Graph(writers ...io.Writer) error {
 }
 
 func (st *Stat[Type]) graph(writer io.Writer) error {
-	bars := make([]pterm.Bar, 0, len(st.items))
+	bars := make([]pterm.Bar, 0, len(st.items)+specialItemsQuantity)
 
 	style := &pterm.Style{
 		pterm.BgDefault,
 		pterm.FgDefault,
+	}
+
+	if st.missed.Quantity != 0 {
+		value, err := safe.IToI[int](st.missed.Quantity)
+		if err != nil {
+			return err
+		}
+
+		bar := pterm.Bar{
+			Label:      "[missed]",
+			Value:      value,
+			Style:      style,
+			LabelStyle: style,
+		}
+
+		bars = append(bars, bar)
 	}
 
 	if st.negInf.Quantity != 0 {

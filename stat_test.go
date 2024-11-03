@@ -117,6 +117,13 @@ func TestStatGraphError(t *testing.T) {
 	stat, err := New([]span.Span[int]{{Begin: 0, End: 0}}, nil)
 	require.NoError(t, err)
 
+	stat.missed.Quantity = math.MaxUint64
+	stat.negInf.Quantity = 0
+	stat.items[0].Quantity = 0
+	stat.posInf.Quantity = 0
+	require.Error(t, stat.Graph(io.Discard))
+
+	stat.missed.Quantity = 0
 	stat.negInf.Quantity = math.MaxUint64
 	stat.items[0].Quantity = 0
 	stat.posInf.Quantity = 0
