@@ -23,36 +23,35 @@ import (
 )
 
 func main() {
-    linear, err := stat.NewLinear(1, 100, 20)
+    stat, err := stat.NewLinear(1, 100, 20)
     if err != nil {
         panic(err)
     }
 
-    linear.Add(0)
+    stat.Inc(0)
 
-    linear.Add(1)
-    linear.Add(20)
+    stat.Inc(1)
+    stat.Inc(20)
 
-    linear.Add(21)
-    linear.Add(22)
-    linear.Add(40)
+    stat.Inc(21)
+    stat.Inc(22)
+    stat.Inc(40)
 
-    linear.Add(41)
-    linear.Add(42)
-    linear.Add(59)
-    linear.Add(60)
+    stat.Inc(41)
+    stat.Inc(42)
+    stat.Inc(59)
+    stat.Inc(60)
 
-    linear.Add(61)
-    linear.Add(62)
-    linear.Add(80)
+    stat.Inc(61)
+    stat.Inc(62)
+    stat.Inc(80)
 
-    linear.Add(81)
-    linear.Add(100)
+    stat.Inc(81)
+    stat.Inc(100)
 
-    linear.Add(101)
+    stat.Inc(101)
 
-    fmt.Println(linear.Stat().Graph(os.Stderr))
-
+    fmt.Println(stat.Graph(os.Stderr))
     // Output:
     // <nil>
 }

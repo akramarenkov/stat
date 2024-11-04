@@ -7,15 +7,15 @@ import (
 )
 
 func TestLinearError(t *testing.T) {
-	linear, err := NewLinear(1, 2, -1)
+	stat, err := NewLinear(1, 2, -1)
 	require.Error(t, err)
-	require.Nil(t, linear)
+	require.Nil(t, stat)
 
-	linear, err = NewLinear(1, 2, 0)
+	stat, err = NewLinear(1, 2, 0)
 	require.Error(t, err)
-	require.Nil(t, linear)
+	require.Nil(t, stat)
 
-	linear, err = NewLinear(2, 1, 1)
+	stat, err = NewLinear(2, 1, 1)
 	require.Error(t, err)
-	require.Nil(t, linear)
+	require.Nil(t, stat)
 }
