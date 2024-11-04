@@ -3,6 +3,7 @@ package stat
 import (
 	"io"
 	"os"
+	"slices"
 	"strconv"
 
 	"github.com/akramarenkov/safe"
@@ -96,6 +97,18 @@ func (st *Stat[Type]) Inc(value Type) {
 		st.items[st.predictor(value)].Quantity++
 		return
 	}
+
+	target := Item[Type]{
+		Span: span.Span[Type]{Begin: value, End: value},
+	}
+
+	id, found := slices.BinarySearchFunc(st.items, target, searcher)
+	if !found {
+		st.missed.Quantity++
+		return
+	}
+
+	st.items[id].Quantity++
 }
 
 func (st *Stat[Type]) lower() int {
