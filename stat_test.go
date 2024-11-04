@@ -33,7 +33,7 @@ func TestStatLinear(t *testing.T) {
 		{
 			Quantity: 2,
 			Span: span.Span[int]{
-				Begin: math.MinInt64,
+				Begin: math.MinInt,
 				End:   0,
 			},
 		},
@@ -62,7 +62,7 @@ func TestStatLinear(t *testing.T) {
 			Quantity: 1,
 			Span: span.Span[int]{
 				Begin: 101,
-				End:   math.MaxInt64,
+				End:   math.MaxInt,
 			},
 		},
 	}
@@ -99,6 +99,85 @@ func TestStatLinearFullRange(t *testing.T) {
 			Span: span.Span[uint8]{
 				Begin: 200,
 				End:   255,
+			},
+		},
+	}
+
+	require.Equal(t, expected, stat.Items())
+	require.NoError(t, stat.Graph(io.Discard))
+}
+
+func TestStatSearch(t *testing.T) {
+	spans := []span.Span[int]{
+		{Begin: 1, End: 2},
+		{Begin: 3, End: 4},
+		{Begin: 6, End: 8},
+	}
+
+	stat, err := New(spans, nil)
+	require.NoError(t, err)
+
+	stat.Inc(-1)
+	stat.Inc(0)
+
+	stat.Inc(1)
+	stat.Inc(2)
+	stat.Inc(2)
+
+	stat.Inc(3)
+	stat.Inc(4)
+	stat.Inc(3)
+	stat.Inc(4)
+	stat.Inc(5)
+
+	stat.Inc(6)
+	stat.Inc(7)
+	stat.Inc(8)
+	stat.Inc(6)
+	stat.Inc(7)
+
+	stat.Inc(9)
+	stat.Inc(10)
+	stat.Inc(11)
+
+	expected := []Item[int]{
+		{
+			Quantity: 1,
+			Span:     span.Span[int]{},
+		},
+		{
+			Quantity: 2,
+			Span: span.Span[int]{
+				Begin: math.MinInt,
+				End:   0,
+			},
+		},
+		{
+			Quantity: 3,
+			Span: span.Span[int]{
+				Begin: 1,
+				End:   2,
+			},
+		},
+		{
+			Quantity: 4,
+			Span: span.Span[int]{
+				Begin: 3,
+				End:   4,
+			},
+		},
+		{
+			Quantity: 5,
+			Span: span.Span[int]{
+				Begin: 6,
+				End:   8,
+			},
+		},
+		{
+			Quantity: 3,
+			Span: span.Span[int]{
+				Begin: 9,
+				End:   math.MaxInt,
 			},
 		},
 	}
@@ -148,19 +227,40 @@ func TestStatGraphError(t *testing.T) {
 }
 
 func BenchmarkStatLinear(b *testing.B) {
-	linear, err := NewLinear(1, 80, 10)
+	stat, err := NewLinear(1, 80, 10)
 	require.NoError(b, err)
 
 	for range b.N {
-		linear.Inc(0)
-		linear.Inc(1)
-		linear.Inc(11)
-		linear.Inc(21)
-		linear.Inc(31)
-		linear.Inc(41)
-		linear.Inc(51)
-		linear.Inc(61)
-		linear.Inc(71)
-		linear.Inc(81)
+		stat.Inc(0)
+		stat.Inc(1)
+		stat.Inc(11)
+		stat.Inc(21)
+		stat.Inc(31)
+		stat.Inc(41)
+		stat.Inc(51)
+		stat.Inc(61)
+		stat.Inc(71)
+		stat.Inc(81)
+	}
+}
+
+func BenchmarkStatSearch(b *testing.B) {
+	spans, err := span.Linear(1, 80, 10)
+	require.NoError(b, err)
+
+	stat, err := New(spans, nil)
+	require.NoError(b, err)
+
+	for range b.N {
+		stat.Inc(0)
+		stat.Inc(1)
+		stat.Inc(11)
+		stat.Inc(21)
+		stat.Inc(31)
+		stat.Inc(41)
+		stat.Inc(51)
+		stat.Inc(61)
+		stat.Inc(71)
+		stat.Inc(81)
 	}
 }
