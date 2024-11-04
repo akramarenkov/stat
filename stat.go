@@ -79,7 +79,7 @@ func (st *Stat[Type]) initInf() {
 	}
 }
 
-// Increases the quantity of occurrences of a value within the specified spans.
+// Increases the quantity of occurrences of the specified value.
 func (st *Stat[Type]) Inc(value Type) {
 	if value < st.items[st.lower()].Span.Begin {
 		// Integer overflow is possible here and below, but it will take a long time
@@ -141,6 +141,8 @@ func (st *Stat[Type]) Items() []Item[Type] {
 }
 
 // Writes statistics as a bar chart to the specified writers.
+//
+// If no writer is specified, the bar chart will be written to standard output.
 func (st *Stat[Type]) Graph(writers ...io.Writer) error {
 	if len(writers) == 0 {
 		if err := st.graph(os.Stdout); err != nil {
