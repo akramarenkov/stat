@@ -102,7 +102,7 @@ func (st *Stat[Type]) Inc(value Type) {
 		Span: span.Span[Type]{Begin: value, End: value},
 	}
 
-	id, found := slices.BinarySearchFunc(st.items, target, searcher)
+	id, found := slices.BinarySearchFunc(st.items, target, search)
 	if !found {
 		st.missed.Quantity++
 		return

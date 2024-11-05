@@ -23,7 +23,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found := slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 0, End: 0}},
-		searcher,
+		search,
 	)
 	require.False(t, found)
 	require.Equal(t, 0, id)
@@ -31,7 +31,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 1, End: 1}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 0, id)
@@ -39,7 +39,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 2, End: 2}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 0, id)
@@ -47,7 +47,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 3, End: 3}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 1, id)
@@ -55,7 +55,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 4, End: 4}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 1, id)
@@ -63,7 +63,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 5, End: 5}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 1, id)
@@ -71,7 +71,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 6, End: 6}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 2, id)
@@ -79,7 +79,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 7, End: 7}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 2, id)
@@ -87,7 +87,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 8, End: 8}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 2, id)
@@ -95,7 +95,7 @@ func testSearcherContinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 9, End: 9}},
-		searcher,
+		search,
 	)
 	require.False(t, found)
 	require.Equal(t, 3, id)
@@ -111,7 +111,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found := slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 0, End: 0}},
-		searcher,
+		search,
 	)
 	require.False(t, found)
 	require.Equal(t, 0, id)
@@ -119,7 +119,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 1, End: 1}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 0, id)
@@ -127,7 +127,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 2, End: 2}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 0, id)
@@ -135,7 +135,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 3, End: 3}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 1, id)
@@ -143,7 +143,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 4, End: 4}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 1, id)
@@ -151,7 +151,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 5, End: 5}},
-		searcher,
+		search,
 	)
 	require.False(t, found)
 	require.Equal(t, 2, id)
@@ -159,7 +159,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 6, End: 6}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 2, id)
@@ -167,7 +167,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 7, End: 7}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 2, id)
@@ -175,7 +175,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 8, End: 8}},
-		searcher,
+		search,
 	)
 	require.True(t, found)
 	require.Equal(t, 2, id)
@@ -183,7 +183,7 @@ func testSearcherDiscontinuous(t *testing.T) {
 	id, found = slices.BinarySearchFunc(
 		continuous,
 		Item[int]{Span: span.Span[int]{Begin: 9, End: 9}},
-		searcher,
+		search,
 	)
 	require.False(t, found)
 	require.Equal(t, 3, id)
