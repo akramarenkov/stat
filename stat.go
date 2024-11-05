@@ -25,7 +25,7 @@ type Stat[Type constraints.Integer] struct {
 
 // Creates an instance of statistics for the specified spans of values.
 //
-// Spans of values must be sorted from smallest to largest and must not intersect.
+// Spans sequence must be increasing and sorted. Spans must not intersect.
 //
 // Prediction function may not be specified, but then the value's correspondence to
 // the span will be determined by searching the list of spans, which is slower.
