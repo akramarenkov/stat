@@ -3,7 +3,7 @@ module github.com/akramarenkov/stat
 go 1.23.1
 
 require (
-	github.com/akramarenkov/safe v0.16.0
+	github.com/akramarenkov/safe v0.17.0
 	github.com/akramarenkov/span v0.5.0
 	github.com/pterm/pterm v0.12.79
 	github.com/stretchr/testify v1.9.0
