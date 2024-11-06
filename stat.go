@@ -34,6 +34,18 @@ func New[Type constraints.Integer](spans []span.Span[Type], predictor Predictor[
 		return nil, ErrSpansListEmpty
 	}
 
+	if err := span.IsNotIntersect(spans); err != nil {
+		return nil, err
+	}
+
+	if err := span.IsIncreasing(spans); err != nil {
+		return nil, err
+	}
+
+	if !slices.IsSortedFunc(spans, span.CompareInc) {
+		return nil, ErrSpansSequenceUnsorted
+	}
+
 	st := &Stat[Type]{
 		items:     createItems(spans),
 		predictor: predictor,
