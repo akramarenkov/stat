@@ -191,19 +191,19 @@ func TestStatError(t *testing.T) {
 	require.Error(t, err)
 	require.Nil(t, stat)
 
-	stat, err = New[int]([]span.Span[int]{{Begin: 1, End: 2}, {Begin: 2, End: 3}}, nil)
+	stat, err = New([]span.Span[int]{{Begin: 1, End: 2}, {Begin: 2, End: 3}}, nil)
 	require.Error(t, err)
 	require.Nil(t, stat)
 
-	stat, err = New[int]([]span.Span[int]{{Begin: 1, End: 2}, {Begin: 4, End: 3}}, nil)
+	stat, err = New([]span.Span[int]{{Begin: 1, End: 2}, {Begin: 4, End: 3}}, nil)
 	require.Error(t, err)
 	require.Nil(t, stat)
 
-	stat, err = New[int]([]span.Span[int]{{Begin: 2, End: 1}, {Begin: 4, End: 3}}, nil)
+	stat, err = New([]span.Span[int]{{Begin: 2, End: 1}, {Begin: 4, End: 3}}, nil)
 	require.Error(t, err)
 	require.Nil(t, stat)
 
-	stat, err = New[int]([]span.Span[int]{{Begin: 3, End: 4}, {Begin: 1, End: 2}}, nil)
+	stat, err = New([]span.Span[int]{{Begin: 3, End: 4}, {Begin: 1, End: 2}}, nil)
 	require.Error(t, err)
 	require.Nil(t, stat)
 }
