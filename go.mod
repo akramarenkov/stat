@@ -4,7 +4,7 @@ go 1.23.1
 
 require (
 	github.com/akramarenkov/safe v0.18.0
-	github.com/akramarenkov/span v0.5.1
+	github.com/akramarenkov/span v0.6.0
 	github.com/pterm/pterm v0.12.79
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/exp v0.0.0-20240707233637-46b078467d37

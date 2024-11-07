@@ -38,7 +38,7 @@ func New[Type constraints.Integer](spans []span.Span[Type], predictor Predictor[
 		return nil, err
 	}
 
-	if err := span.IsIncreasing(spans); err != nil {
+	if err := span.IsNonDecreasing(spans); err != nil {
 		return nil, err
 	}
 
