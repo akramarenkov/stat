@@ -19,8 +19,8 @@ github.com/akramarenkov/alter v0.0.4 h1:MkCftWHuUAa2tN8Qi4QlU5F+yoCJ1TdgDJVSSb/7
 github.com/akramarenkov/alter v0.0.4/go.mod h1:8D8T9akTl2+Qi+USXS3VTU/T5Ck84nx2jPn5iygn3GM=
 github.com/akramarenkov/reusable v0.1.4 h1:zHo8Vo3tLlSTuvfuxZvXryrcU/DShcB637KpFcOpX6Q=
 github.com/akramarenkov/reusable v0.1.4/go.mod h1:AxQqV9QJM8yJpitHDaQlPari3TILx6pq7roVM/G8qdc=
-github.com/akramarenkov/safe v0.17.0 h1:WWw9u6qrNvIj3Y+MhdFkVswVunX/UAufx4zMkGZAWqM=
-github.com/akramarenkov/safe v0.17.0/go.mod h1:JUqW1PfWQITWPydLduEg0LKR10cd25Zt0fhl9/QazhU=
+github.com/akramarenkov/safe v0.18.0 h1:3gKmwPsouT7n0lKdhDckPj537ZYB4psfQ3UTN7ukNpA=
+github.com/akramarenkov/safe v0.18.0/go.mod h1:JUqW1PfWQITWPydLduEg0LKR10cd25Zt0fhl9/QazhU=
 github.com/akramarenkov/span v0.5.0 h1:uge5Zxf2lgsFWWiIUl22CdSmetY9rnPvWINXEozyvo0=
 github.com/akramarenkov/span v0.5.0/go.mod h1:XbIaaeZUWDxzXudRcWnbPhUixBNKr3lPJH3pzGdUcEM=
 github.com/atomicgo/cursor v0.0.1/go.mod h1:cBON2QmmrysudxNBFthvMtN32r3jxVRIvzkUiF/RuIk=
