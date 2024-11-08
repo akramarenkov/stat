@@ -51,7 +51,7 @@ func New[Type constraints.Integer](spans []span.Span[Type], predictor Predictor[
 		predictor: predictor,
 	}
 
-	st.initInf()
+	st.prepare()
 
 	return st, nil
 }
@@ -61,12 +61,17 @@ func createItems[Type constraints.Integer](spans []span.Span[Type]) []Item[Type]
 
 	for id, span := range spans {
 		items[id].Span = span
+		items[id].Kind = ItemKindRegular
 	}
 
 	return items
 }
 
-func (st *Stat[Type]) initInf() {
+func (st *Stat[Type]) prepare() {
+	st.missed.Kind = ItemKindMissed
+	st.negInf.Kind = ItemKindNegInf
+	st.posInf.Kind = ItemKindPosInf
+
 	minimum, maximum := intspec.Range[Type]()
 
 	lower := st.items[st.lower()]
@@ -185,7 +190,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      "[missed]",
+			Label:      "[" + st.missed.Kind.String() + "]",
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -201,7 +206,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      "[-Inf:" + fmtInt(st.negInf.Span.End) + "]",
+			Label:      "[" + st.negInf.Kind.String() + ":" + fmtInt(st.negInf.Span.End) + "]",
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -233,7 +238,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      "[" + fmtInt(st.posInf.Span.Begin) + ":+Inf" + "]",
+			Label:      "[" + fmtInt(st.posInf.Span.Begin) + ":" + st.posInf.Kind.String() + "]",
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,

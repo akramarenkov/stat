@@ -49,6 +49,7 @@ func TestLinearQ1(t *testing.T) {
 				Begin: math.MinInt8,
 				End:   0,
 			},
+			Kind: ItemKindNegInf,
 		},
 		{
 			Quantity: 4,
@@ -56,6 +57,7 @@ func TestLinearQ1(t *testing.T) {
 				Begin: 1,
 				End:   100,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 4,
@@ -63,6 +65,7 @@ func TestLinearQ1(t *testing.T) {
 				Begin: 101,
 				End:   math.MaxInt8,
 			},
+			Kind: ItemKindPosInf,
 		},
 	}
 
@@ -92,6 +95,7 @@ func TestLinearQ1Max(t *testing.T) {
 				Begin: math.MinInt8,
 				End:   math.MaxInt8,
 			},
+			Kind: ItemKindRegular,
 		},
 	}
 
@@ -131,6 +135,7 @@ func TestLinearQ2(t *testing.T) {
 				Begin: math.MinInt8,
 				End:   0,
 			},
+			Kind: ItemKindNegInf,
 		},
 		{
 			Quantity: 4,
@@ -138,6 +143,7 @@ func TestLinearQ2(t *testing.T) {
 				Begin: 1,
 				End:   50,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 5,
@@ -145,6 +151,7 @@ func TestLinearQ2(t *testing.T) {
 				Begin: 51,
 				End:   100,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 4,
@@ -152,6 +159,7 @@ func TestLinearQ2(t *testing.T) {
 				Begin: 101,
 				End:   math.MaxInt8,
 			},
+			Kind: ItemKindPosInf,
 		},
 	}
 
@@ -181,6 +189,7 @@ func TestLinearQ2Max(t *testing.T) {
 				Begin: math.MinInt8,
 				End:   -1,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 5,
@@ -188,6 +197,7 @@ func TestLinearQ2Max(t *testing.T) {
 				Begin: 0,
 				End:   math.MaxInt8,
 			},
+			Kind: ItemKindRegular,
 		},
 	}
 
@@ -219,6 +229,7 @@ func TestLinearQ2MaxUns(t *testing.T) {
 				Begin: 0,
 				End:   127,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 5,
@@ -226,6 +237,7 @@ func TestLinearQ2MaxUns(t *testing.T) {
 				Begin: 128,
 				End:   math.MaxUint8,
 			},
+			Kind: ItemKindRegular,
 		},
 	}
 
@@ -271,6 +283,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: math.MinInt,
 				End:   0,
 			},
+			Kind: ItemKindNegInf,
 		},
 		{
 			Quantity: 2,
@@ -278,6 +291,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 1,
 				End:   10,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -285,6 +299,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 11,
 				End:   20,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -292,6 +307,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 21,
 				End:   30,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -299,6 +315,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 31,
 				End:   40,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -306,6 +323,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 41,
 				End:   50,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -313,6 +331,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 51,
 				End:   60,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -320,6 +339,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 61,
 				End:   70,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -327,6 +347,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 71,
 				End:   80,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 2,
@@ -334,6 +355,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 81,
 				End:   90,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 4,
@@ -341,6 +363,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 91,
 				End:   100,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 1,
@@ -348,6 +371,7 @@ func TestLinearQ10(t *testing.T) {
 				Begin: 101,
 				End:   math.MaxInt,
 			},
+			Kind: ItemKindPosInf,
 		},
 	}
 

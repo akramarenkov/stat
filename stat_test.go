@@ -36,6 +36,7 @@ func TestStatLinear(t *testing.T) {
 				Begin: math.MinInt,
 				End:   0,
 			},
+			Kind: ItemKindNegInf,
 		},
 		{
 			Quantity: 39,
@@ -43,6 +44,7 @@ func TestStatLinear(t *testing.T) {
 				Begin: 1,
 				End:   39,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 67,
@@ -50,6 +52,7 @@ func TestStatLinear(t *testing.T) {
 				Begin: 40,
 				End:   78,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 44,
@@ -57,6 +60,7 @@ func TestStatLinear(t *testing.T) {
 				Begin: 79,
 				End:   100,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 1,
@@ -64,6 +68,7 @@ func TestStatLinear(t *testing.T) {
 				Begin: 101,
 				End:   math.MaxInt,
 			},
+			Kind: ItemKindPosInf,
 		},
 	}
 
@@ -86,6 +91,7 @@ func TestStatLinearFullRange(t *testing.T) {
 				Begin: 0,
 				End:   99,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 100,
@@ -93,6 +99,7 @@ func TestStatLinearFullRange(t *testing.T) {
 				Begin: 100,
 				End:   199,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 56,
@@ -100,6 +107,7 @@ func TestStatLinearFullRange(t *testing.T) {
 				Begin: 200,
 				End:   255,
 			},
+			Kind: ItemKindRegular,
 		},
 	}
 
@@ -144,6 +152,7 @@ func TestStatSearch(t *testing.T) {
 		{
 			Quantity: 1,
 			Span:     span.Span[int]{},
+			Kind:     ItemKindMissed,
 		},
 		{
 			Quantity: 2,
@@ -151,6 +160,7 @@ func TestStatSearch(t *testing.T) {
 				Begin: math.MinInt,
 				End:   0,
 			},
+			Kind: ItemKindNegInf,
 		},
 		{
 			Quantity: 3,
@@ -158,6 +168,7 @@ func TestStatSearch(t *testing.T) {
 				Begin: 1,
 				End:   2,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 4,
@@ -165,6 +176,7 @@ func TestStatSearch(t *testing.T) {
 				Begin: 3,
 				End:   4,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 5,
@@ -172,6 +184,7 @@ func TestStatSearch(t *testing.T) {
 				Begin: 6,
 				End:   8,
 			},
+			Kind: ItemKindRegular,
 		},
 		{
 			Quantity: 3,
@@ -179,11 +192,12 @@ func TestStatSearch(t *testing.T) {
 				Begin: 9,
 				End:   math.MaxInt,
 			},
+			Kind: ItemKindPosInf,
 		},
 	}
 
 	require.Equal(t, expected, stat.Items())
-	require.NoError(t, stat.Graph(io.Discard))
+	require.NoError(t, stat.Graph())
 }
 
 func TestStatError(t *testing.T) {
