@@ -187,7 +187,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      fmt.Sprintf("[%s]", st.missed.Kind),
+			Label:      fmt.Sprintf("[%v]", st.missed.Kind),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -203,7 +203,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      fmt.Sprintf("[%s:%d]", st.negInf.Kind, st.negInf.Span.End),
+			Label:      fmt.Sprintf("[%v:%v]", st.negInf.Kind, st.negInf.Span.End),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -219,7 +219,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      fmt.Sprintf("[%d:%d]", item.Span.Begin, item.Span.End),
+			Label:      fmt.Sprintf("[%v:%v]", item.Span.Begin, item.Span.End),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -235,7 +235,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      fmt.Sprintf("[%d:%s]", st.posInf.Span.Begin, st.posInf.Kind),
+			Label:      fmt.Sprintf("[%v:%v]", st.posInf.Span.Begin, st.posInf.Kind),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
