@@ -1,14 +1,13 @@
 package stat
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"slices"
-	"strconv"
 
 	"github.com/akramarenkov/safe"
 	"github.com/akramarenkov/safe/intspec"
-	"github.com/akramarenkov/safe/is"
 	"github.com/akramarenkov/span"
 	"github.com/pterm/pterm"
 	"golang.org/x/exp/constraints"
@@ -188,7 +187,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      "[" + st.missed.Kind.String() + "]",
+			Label:      fmt.Sprintf("[%s]", st.missed.Kind),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -204,7 +203,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      "[" + st.negInf.Kind.String() + ":" + fmtInt(st.negInf.Span.End) + "]",
+			Label:      fmt.Sprintf("[%s:%d]", st.negInf.Kind, st.negInf.Span.End),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -220,7 +219,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      "[" + fmtInt(item.Span.Begin) + ":" + fmtInt(item.Span.End) + "]",
+			Label:      fmt.Sprintf("[%d:%d]", item.Span.Begin, item.Span.End),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -236,7 +235,7 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 		}
 
 		bar := pterm.Bar{
-			Label:      "[" + fmtInt(st.posInf.Span.Begin) + ":" + st.posInf.Kind.String() + "]",
+			Label:      fmt.Sprintf("[%d:%s]", st.posInf.Span.Begin, st.posInf.Kind),
 			Value:      value,
 			Style:      style,
 			LabelStyle: style,
@@ -248,12 +247,4 @@ func (st *Stat[Type]) graph(writer io.Writer) error {
 	chart := pterm.DefaultBarChart.WithBars(bars).WithShowValue()
 
 	return chart.WithWriter(writer).Render()
-}
-
-func fmtInt[Type constraints.Integer](number Type) string {
-	if is.Signed[Type]() {
-		return strconv.FormatInt(int64(number), decimalBase)
-	}
-
-	return strconv.FormatUint(uint64(number), decimalBase)
 }
