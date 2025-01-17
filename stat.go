@@ -164,6 +164,8 @@ func (st *Stat[Type]) Graph(writers ...io.Writer) error {
 		if err := st.graph(os.Stdout); err != nil {
 			return err
 		}
+
+		return nil
 	}
 
 	for _, writer := range writers {
