@@ -161,11 +161,7 @@ func (st *Stat[Type]) Items() []Item[Type] {
 // If no writer is specified, the bar chart will be written to standard output.
 func (st *Stat[Type]) Graph(writers ...io.Writer) error {
 	if len(writers) == 0 {
-		if err := st.graph(os.Stdout); err != nil {
-			return err
-		}
-
-		return nil
+		return st.graph(os.Stdout)
 	}
 
 	for _, writer := range writers {
