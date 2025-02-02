@@ -58,8 +58,8 @@ func New[Type constraints.Integer](spans []span.Span[Type], predictor Predictor[
 func createItems[Type constraints.Integer](spans []span.Span[Type]) []Item[Type] {
 	items := make([]Item[Type], len(spans))
 
-	for id, span := range spans {
-		items[id].Span = span
+	for id, spn := range spans {
+		items[id].Span = spn
 		items[id].Kind = ItemKindRegular
 	}
 
@@ -126,7 +126,7 @@ func (st *Stat[Type]) Inc(value Type) {
 	st.missed.Quantity++
 }
 
-func (st *Stat[Type]) lower() int {
+func (*Stat[Type]) lower() int {
 	return 0
 }
 
