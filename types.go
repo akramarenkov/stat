@@ -13,8 +13,10 @@ type Predictor[Type constraints.Integer] func(value Type) uint64
 type Item[Type constraints.Integer] struct {
 	// Kind (purpose) of item
 	Kind ItemKind
+
 	// Quantity of occurrences of a value belonging to a Span
 	Quantity uint64
+
 	// Span of values ​​for which the Quantity of occurrences is collected
 	Span span.Span[Type]
 }
