@@ -6,8 +6,8 @@ import (
 	"os"
 	"slices"
 
+	"github.com/akramarenkov/intspec"
 	"github.com/akramarenkov/safe"
-	"github.com/akramarenkov/safe/intspec"
 	"github.com/akramarenkov/span"
 	"github.com/pterm/pterm"
 	"golang.org/x/exp/constraints"
