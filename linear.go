@@ -51,8 +51,8 @@ func NewLinearQ[Type constraints.Integer](lower, upper, quantity Type) (*Stat[Ty
 	width, err := safe.AddOneSubDiv(upper, lower, quantity)
 	if err != nil {
 		// Given the checks above, an error can only occur for signed types,
-		// only if the lower and upper values ​​are equal to the minimum and maximum
-		// values ​​for the type used, and only if the quantity value is two
+		// only if the lower and upper values are equal to the minimum and maximum
+		// values for the type used, and only if the quantity value is two
 		spans := []span.Span[Type]{
 			{Begin: lower, End: -Type(1)},
 			{Begin: 0, End: upper},

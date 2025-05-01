@@ -17,7 +17,7 @@ type Item[Type constraints.Integer] struct {
 	// Quantity of occurrences of a value belonging to a Span
 	Quantity uint64
 
-	// Span of values ​​for which the Quantity of occurrences is collected
+	// Span of values for which the Quantity of occurrences is collected
 	Span span.Span[Type]
 }
 
