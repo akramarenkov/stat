@@ -1,6 +1,6 @@
 module github.com/akramarenkov/stat
 
-go 1.24.0
+go 1.25
 
 require (
 	github.com/akramarenkov/intspec v0.0.3
